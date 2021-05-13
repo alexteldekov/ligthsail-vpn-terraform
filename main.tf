@@ -17,7 +17,8 @@ resource "aws_lightsail_instance" "app" {
   blueprint_id      = "ubuntu_20_04"
   bundle_id         = "nano_2_0"
   key_pair_name     = aws_lightsail_key_pair.app.name
-  user_data         = file("user_data.sh")
+  #user_data         = file("user_data.sh")
+  user_data         = templatefile("${path.module}/user_data.sh", { name = self.name })
 }
 
 resource "aws_lightsail_key_pair" "app" {
