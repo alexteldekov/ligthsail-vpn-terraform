@@ -20,4 +20,7 @@ locals {
   region  = "eu-west-2"
   #  keyname  = "examplekey"
   #  pgpkey   = "keybase:exampleuser"
+  ansible_repo   = "https://github.com/alexteldekov/vpn-server.git"
+  ansible_branch = "master"
+  ansible_role   = "vpn-server"
 }

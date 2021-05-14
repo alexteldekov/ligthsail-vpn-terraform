@@ -18,7 +18,7 @@ resource "aws_lightsail_instance" "app" {
   bundle_id         = "nano_2_0"
   key_pair_name     = aws_lightsail_key_pair.app.name
   #user_data         = file("user_data.sh")
-  user_data         = templatefile("${path.module}/user_data.sh", { name = self.name })
+  user_data = templatefile("${path.module}/user_data.sh", { name = "${local.appname}.${local.domain}", ansible_repo = "${local.ansible_repo}", ansible_role = "${local.ansible_role}", ansible_branch = "${local.ansible_branch}" })
 }
 
 resource "aws_lightsail_key_pair" "app" {
@@ -39,6 +39,12 @@ resource "aws_lightsail_instance_public_ports" "app" {
     protocol  = "tcp"
     from_port = 6022
     to_port   = 6022
+  }
+
+  port_info {
+    protocol  = "tcp"
+    from_port = 80
+    to_port   = 80
   }
 
   port_info {
